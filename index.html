@@ -4,27 +4,135 @@
   <meta charset="UTF-8">
   <title>Header Template</title>
   <style>
- /* 全体の基本設定 - 既存のbodyスタイルと合わせて調整 */
- .main-header { background-color: #f7f7f7; border-bottom: 1px solid #e2e8f0; padding: 16px; position: sticky; top: 0; z-index: 1000; } 
- .header-content { max-width: 600px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
- /* サイトタイトル */
- .site-title { font-size: 1.25rem; color: #555; font-weight: bold; text-decoration: none; line-height: 1; /* タイトルとリンクの高さを揃える */ }
- /* ナビゲーションリンク */
- .main-nav a { color: #4c51bf; text-decoration: none; font-weight: bold; margin-left: 16px; transition: color 0.2s; }
- .main-nav a:hover { color: #667eea; text-decoration: underline; }
- /* モバイル対応 */
- @media (max-width: 767px) { .header-content { max-width: 100%; padding: 0 16px; } }
-</style>
+    /* bodyの基本スタイル */
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+      line-height: 1.3;
+      font-weight: normal;
+      background-color: #f7f7f7;
+      color: #333;
+      padding-top: 56px; /* ヘッダーの高さ分、コンテンツを下にずらす */
+      min-height: 100vh;
+    }
+
+    /* ヘッダーのスタイル */
+    .main-header {
+      background-color: #f7f7f7;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 16px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      box-sizing: border-box;
+    }
+    
+    .header-content {
+      max-width: 600px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* サイトタイトル */
+    .site-title {
+      font-size: 1.25rem;
+      color: #555;
+      font-weight: bold;
+      text-decoration: none;
+      line-height: 1;
+    }
+
+    /* ナビゲーションコンテナ */
+    .main-nav-container {
+      position: relative;
+    }
+
+    /* ハンバーガーボタン */
+    .hamburger-button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      display: block; /* デフォルトで表示 */
+    }
+
+    .hamburger-line {
+      display: block;
+      width: 25px;
+      height: 3px;
+      background-color: #555;
+      margin: 5px 0;
+      transition: all 0.3s;
+    }
+    
+    /* メニューのスタイル */
+    .main-nav {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background-color: #f7f7f7;
+      border: 1px solid #e2e8f0;
+      border-top: none;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      display: none; /* 初期状態は非表示 */
+      min-width: 150px;
+    }
+    
+    .main-nav a {
+      display: block;
+      padding: 12px 16px;
+      color: #4c51bf;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.2s;
+    }
+
+    .main-nav a:hover {
+      background-color: #e2e8f0;
+    }
+    
+    /* メニューが開いているときのスタイル */
+    .main-nav.is-open {
+      display: block;
+    }
+
+    /* デスクトップ用スタイル（768px以上） */
+    @media (min-width: 768px) {
+      .hamburger-button {
+        display: none; /* ボタンを非表示に */
+      }
+      .main-nav {
+        position: static;
+        display: flex; /* メニューを常時表示 */
+        flex-direction: row;
+        border: none;
+        box-shadow: none;
+      }
+      .main-nav a {
+        padding: 0 0 0 16px; /* リンクのパディングを調整 */
+      }
+    }
+  </style>
 </head>
 <body>
   <header class="main-header">
     <div class="header-content">
       <a href="/" class="site-title">My Tools</a>
-      <nav class="main-nav">
-        <a href="https://ユーザー名.github.io/tool-a/">ツールA</a>
-        <a href="https://ユーザー名.github.io/tool-b/">ツールB</a>
-        <a href="https://ユーザー名.github.io/tool-c/">ツールC</a>
-      </nav>
+      <div class="main-nav-container">
+        <button class="hamburger-button" aria-expanded="false" aria-controls="main-nav">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
+        <nav class="main-nav" id="main-nav">
+          <a href="https://ユーザー名.github.io/tool-a/">ツールA</a>
+          <a href="https://ユーザー名.github.io/tool-b/">ツールB</a>
+          <a href="https://ユーザー名.github.io/tool-c/">ツールC</a>
+        </nav>
+      </div>
     </div>
   </header>
 </body>
