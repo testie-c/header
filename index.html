@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Header Template</title>
+  <style>
+ /* 全体の基本設定 - 既存のbodyスタイルと合わせて調整 */
+ .main-header { background-color: #f7f7f7; border-bottom: 1px solid #e2e8f0; padding: 16px; position: sticky; top: 0; z-index: 1000; } 
+ .header-content { max-width: 600px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+ /* サイトタイトル */
+ .site-title { font-size: 1.25rem; color: #555; font-weight: bold; text-decoration: none; line-height: 1; /* タイトルとリンクの高さを揃える */ }
+ /* ナビゲーションリンク */
+ .main-nav a { color: #4c51bf; text-decoration: none; font-weight: bold; margin-left: 16px; transition: color 0.2s; }
+ .main-nav a:hover { color: #667eea; text-decoration: underline; }
+ /* モバイル対応 */
+ @media (max-width: 767px) { .header-content { max-width: 100%; padding: 0 16px; } }
+</style>
+</head>
+<body>
+  <header class="main-header">
+    <div class="header-content">
+      <a href="/" class="site-title">My Tools</a>
+      <nav class="main-nav">
+        <a href="https://ユーザー名.github.io/tool-a/">ツールA</a>
+        <a href="https://ユーザー名.github.io/tool-b/">ツールB</a>
+        <a href="https://ユーザー名.github.io/tool-c/">ツールC</a>
+      </nav>
+    </div>
+  </header>
+</body>
+</html>
