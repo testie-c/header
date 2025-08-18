@@ -1,145 +1,39 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <title>Header Template</title>
-    <style>
-        /* bodyの基本スタイル */
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-            line-height: 1.3;
-            font-weight: normal;
-            background-color: #f7f7f7;
-            color: #333;
-            /* padding-topはヘッダーの高さ分、コンテンツを下にずらす */
-            padding-top: 56px;
-            min-height: 100vh;
-        }
-
-        /* ヘッダー全体をラップするコンテナ */
-        .header-wrapper {
-            background-color: #f7f7f7;
-            border-bottom: 1px solid #e2e8f0;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-            box-sizing: border-box;
-        }
-
-        /* ヘッダーの中身 (600pxコンテナ) */
-        .main-header {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 0 1rem;
-            height: 56px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative; /* 子要素の配置基準に */
-        }
-
-        /* サイトタイトル */
-        .site-title {
-            font-size: 1.25rem;
-            color: #555;
-            font-weight: bold;
-            text-decoration: none;
-            line-height: 1;
-            position: absolute; /* タイトルを左端に固定 */
-            left: 1rem;
-        }
-
-        /* ハンバーガーボタン */
-        .hamburger-button {
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 0.5rem;
-            position: absolute; /* ボタンを右端に固定 */
-            right: 1rem;
-            z-index: 1001; /* メニューの上に表示 */
-        }
-
-        .hamburger-line {
-            display: block;
-            width: 25px;
-            height: 3px;
-            background-color: #555;
-            margin: 5px 0;
-        }
-
-        /* メニューのスタイル */
-        .main-nav {
-            position: absolute;
-            top: 56px; /* ヘッダーの高さ分下に配置 */
-            right: 1rem;
-            background-color: #f7f7f7;
-            border: 1px solid #e2e8f0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            display: none; /* 初期状態は非表示 */
-            min-width: 150px;
-        }
-
-        /* メニューが開いているときのスタイル */
-        .main-nav.is-open {
-            display: block;
-        }
-
-        .main-nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .main-nav a {
-            display: block;
-            padding: 12px 16px;
-            color: #4c51bf;
-            text-decoration: none;
-            font-weight: bold;
-            transition: background-color 0.2s;
-        }
-
-        .main-nav a:hover {
-            background-color: #e2e8f0;
-        }
-
-        /* ページのコンテンツコンテナ（必要であれば） */
-        .page-content {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 1rem;
-        }
-
-        /* アニメーションなしのハンバーガーボタン */
-        .hamburger-button.is-open .hamburger-line:nth-child(1),
-        .hamburger-button.is-open .hamburger-line:nth-child(2),
-        .hamburger-button.is-open .hamburger-line:nth-child(3) {
-            /* アニメーションを無効化 */
-            transform: none;
-            opacity: 1;
-        }
-    </style>
+<meta charset="UTF-8">
+<title>Header Template</title>
+<style>
+ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; line-height: 1.3; font-weight: normal; background-color: #f7f7f7; color: #333; min-height: 100vh; }
+ .site-title { font-size: 1.25rem; color: #555; font-weight: bold; text-decoration: none; line-height: 1; position: fixed; top: 1rem; left: 1rem; z-index: 1000; }
+ .hamburger-button { background: none; border: none; cursor: pointer; padding: 0.5rem; position: fixed; top: 1rem; right: 1rem; z-index: 1001; }
+ .hamburger-line { display: block; width: 25px; height: 3px; background-color: #555; margin: 5px 0; transition: all 0.3s; }
+ .main-nav { position: fixed; top: 0; right: 0; height: 100%; width: 250px; background-color: #f7f7f7; border-left: 1px solid #e2e8f0; box-shadow: -2px 0 5px rgba(0,0,0,0.1); transform: translateX(100%); transition: transform 0.3s ease-in-out; z-index: 999; padding-top: 5rem; }
+ .main-nav.is-open { transform: translateX(0); }
+ .main-nav ul { list-style: none; padding: 0; margin: 0; }
+ .main-nav li { border-bottom: 1px solid #e2e8f0; }
+ .main-nav a { display: block; padding: 12px 16px; color: #4c51bf; text-decoration: none; font-weight: bold; transition: background-color 0.2s; }
+ .main-nav a:hover { background-color: #e2e8f0; }
+ .hamburger-button.is-open .hamburger-line:nth-child(2) { opacity: 0; }
+ .hamburger-button.is-open .hamburger-line:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+ .hamburger-button.is-open .hamburger-line:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+</style>
 </head>
 <body>
-    <div class="header-wrapper">
-        <header class="main-header">
-            <a href="/" class="site-title">My Tools</a>
-            <button class="hamburger-button" aria-expanded="false" aria-controls="main-nav">
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-                <span class="hamburger-line"></span>
-            </button>
-            <nav class="main-nav" id="main-nav">
-                <ul>
-                    <li><a href="https://ユーザー名.github.io/tool-a/">ツールA</a></li>
-                    <li><a href="https://ユーザー名.github.io/tool-b/">ツールB</a></li>
-                    <li><a href="https://ユーザー名.github.io/tool-c/">ツールC</a></li>
-                </ul>
-            </nav>
-        </header>
-    </div>
+ <a href="#" class="site-title"></a>
+ <button class="hamburger-button" aria-expanded="false" aria-controls="main-nav">
+ <span class="hamburger-line"></span>
+ <span class="hamburger-line"></span>
+ <span class="hamburger-line"></span>
+ </button>
+ <nav class="main-nav" id="main-nav">
+ <ul>
+ <li><a href="https://ユーザー名.github.io/tool-a/">ツールA</a></li>
+ <li><a href="https://ユーザー名.github.io/tool-b/">ツールB</a></li>
+ <li><a href="https://ユーザー名.github.io/tool-c/">ツールC</a></li>
+ </ul>
+ </nav>
+<div class="page-content">
+</div>
 </body>
 </html>
