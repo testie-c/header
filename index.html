@@ -15,39 +15,20 @@
       min-height: 100vh;
     }
 
-    /* ヘッダーのスタイル */
+    /* ヘッダー全体のコンテナ */
     .main-header {
       background-color: #f7f7f7;
-      border-bottom: 1px solid #e2e8f0;
-      padding: 16px;
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
+      height: 56px;
       z-index: 1000;
       box-sizing: border-box;
-    }
-    
-    .header-content {
-      max-width: 600px;
-      margin: 0 auto;
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-end; /* ハンバーガーアイコンを右寄せにする */
       align-items: center;
-    }
-
-    /* サイトタイトル */
-    .site-title {
-      font-size: 1.25rem;
-      color: #555;
-      font-weight: bold;
-      text-decoration: none;
-      line-height: 1;
-    }
-
-    /* ナビゲーションコンテナ */
-    .main-nav-container {
-      position: relative;
+      padding: 0 1rem;
     }
 
     /* ハンバーガーボタン */
@@ -55,8 +36,9 @@
       background: none;
       border: none;
       cursor: pointer;
-      padding: 0;
-      display: block; /* デフォルトで表示 */
+      padding: 0.5rem;
+      z-index: 1001; /* メニューの上に表示 */
+      display: block;
     }
 
     .hamburger-line {
@@ -65,25 +47,49 @@
       height: 3px;
       background-color: #555;
       margin: 5px 0;
-      transition: all 0.3s;
+      transition: all 0.3s ease-in-out;
     }
-    
-    /* メニューのスタイル */
+
+    /* ハンバーガーボタンのアニメーション */
+    .hamburger-button.is-open .hamburger-line:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
+    .hamburger-button.is-open .hamburger-line:nth-child(2) {
+      opacity: 0;
+    }
+    .hamburger-button.is-open .hamburger-line:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
+
+    /* メニューのスタイル（右からスライドイン） */
     .main-nav {
-      position: absolute;
-      top: 100%;
-      right: 0;
+      position: fixed;
+      top: 0;
+      right: -300px; /* 画面外に隠す */
+      width: 300px; /* メニューの幅 */
+      height: 100vh;
       background-color: #f7f7f7;
-      border: 1px solid #e2e8f0;
-      border-top: none;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      display: none; /* 初期状態は非表示 */
-      min-width: 150px;
+      box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+      transition: right 0.3s ease-in-out; /* スライドアニメーション */
+      z-index: 999;
+      padding-top: 56px; /* ハンバーガーボタンと重ならないように調整 */
+      box-sizing: border-box;
     }
-    
+
+    /* メニューが開いているときのスタイル */
+    .main-nav.is-open {
+      right: 0; /* 画面内にスライドイン */
+    }
+
+    .main-nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
     .main-nav a {
       display: block;
-      padding: 12px 16px;
+      padding: 1rem 1.5rem;
       color: #4c51bf;
       text-decoration: none;
       font-weight: bold;
@@ -93,47 +99,50 @@
     .main-nav a:hover {
       background-color: #e2e8f0;
     }
+
+    /* 帯状のヘッダーのコンテンツは非表示にする */
+    .header-content {
+      display: none;
+    }
     
-    /* メニューが開いているときのスタイル */
-    .main-nav.is-open {
-      display: block;
+    /* ヘッダーにロゴなどを表示する場合は、以下のスタイルを調整 */
+    .site-title-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      padding-left: 1rem;
+      z-index: 1000;
     }
 
-    /* デスクトップ用スタイル（768px以上） */
-    @media (min-width: 768px) {
-      .hamburger-button {
-        display: none; /* ボタンを非表示に */
-      }
-      .main-nav {
-        position: static;
-        display: flex; /* メニューを常時表示 */
-        flex-direction: row;
-        border: none;
-        box-shadow: none;
-      }
-      .main-nav a {
-        padding: 0 0 0 16px; /* リンクのパディングを調整 */
-      }
+    .site-title {
+      font-size: 1.25rem;
+      color: #555;
+      font-weight: bold;
+      text-decoration: none;
     }
   </style>
 </head>
 <body>
   <header class="main-header">
-    <div class="header-content">
+    <div class="site-title-container">
       <a href="/" class="site-title">My Tools</a>
-      <div class="main-nav-container">
-        <button class="hamburger-button" aria-expanded="false" aria-controls="main-nav">
-          <span class="hamburger-line"></span>
-          <span class="hamburger-line"></span>
-          <span class="hamburger-line"></span>
-        </button>
-        <nav class="main-nav" id="main-nav">
-          <a href="https://ユーザー名.github.io/tool-a/">ツールA</a>
-          <a href="https://ユーザー名.github.io/tool-b/">ツールB</a>
-          <a href="https://ユーザー名.github.io/tool-c/">ツールC</a>
-        </nav>
-      </div>
     </div>
+    <button class="hamburger-button" aria-expanded="false" aria-controls="main-nav">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+    <nav class="main-nav" id="main-nav">
+      <ul>
+        <li><a href="https://ユーザー名.github.io/tool-a/">ツールA</a></li>
+        <li><a href="https://ユーザー名.github.io/tool-b/">ツールB</a></li>
+        <li><a href="https://ユーザー名.github.io/tool-c/">ツールC</a></li>
+      </ul>
+    </nav>
   </header>
 </body>
 </html>
