@@ -11,21 +11,40 @@ async function loadHeader() {
   }
 
   try {
-    // URLを絶対パスに修正
-    const headerUrl = 'https://testie-c.github.io/header/index.html'; // 💡 ここを修正
-    const response = await fetch(headerUrl);
-    
-    // HTTPエラーが発生した場合
+    const response = await fetch('https://testie-c.github.io/header.html');
     if (!response.ok) {
       throw new Error(`Failed to load header.html: ${response.statusText}`);
     }
-    
     const headerHtml = await response.text();
-    
-    // 取得したHTMLをコンテナに挿入
     container.innerHTML = headerHtml;
+    setupHamburgerMenu(); // ヘッダー読み込み後にイベントリスナーを設定
   } catch (error) {
     console.error('Failed to load header:', error);
+  }
+}
+
+/**
+ * ハンバーガーメニューの開閉機能を設定する
+ */
+function setupHamburgerMenu() {
+  const hamburgerButton = document.querySelector('.hamburger-button');
+  const navMenu = document.querySelector('.main-nav');
+
+  if (hamburgerButton && navMenu) {
+    hamburgerButton.addEventListener('click', () => {
+      const isExpanded = hamburgerButton.getAttribute('aria-expanded') === 'true';
+      hamburgerButton.setAttribute('aria-expanded', !isExpanded);
+      navMenu.classList.toggle('is-open');
+    });
+
+    // メニュー外をクリックで閉じる
+    document.addEventListener('click', (event) => {
+      const isClickInsideMenu = hamburgerButton.contains(event.target) || navMenu.contains(event.target);
+      if (!isClickInsideMenu && navMenu.classList.contains('is-open')) {
+        hamburgerButton.setAttribute('aria-expanded', 'false');
+        navMenu.classList.remove('is-open');
+      }
+    });
   }
 }
 
