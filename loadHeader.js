@@ -11,7 +11,7 @@ async function loadHeader() {
     }
 
     try {
-        const response = await fetch('https://testie-c.github.io/header/index.html');
+        const response = await fetch('https://testie-c.github.io/header/header.html'); 
         if (!response.ok) {
             throw new Error(`Failed to load header.html: ${response.statusText}`);
         }
@@ -34,6 +34,7 @@ function setupHamburgerMenu() {
         hamburgerButton.addEventListener('click', () => {
             const isExpanded = hamburgerButton.getAttribute('aria-expanded') === 'true';
             hamburgerButton.setAttribute('aria-expanded', !isExpanded);
+            hamburgerButton.classList.toggle('is-open'); // ①に追記した内容
             navMenu.classList.toggle('is-open');
         });
 
@@ -42,6 +43,7 @@ function setupHamburgerMenu() {
             const isClickInsideMenu = hamburgerButton.contains(event.target) || navMenu.contains(event.target);
             if (!isClickInsideMenu && navMenu.classList.contains('is-open')) {
                 hamburgerButton.setAttribute('aria-expanded', 'false');
+                hamburgerButton.classList.remove('is-open'); // ①に追記した内容
                 navMenu.classList.remove('is-open');
             }
         });
