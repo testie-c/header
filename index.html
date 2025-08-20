@@ -41,4 +41,17 @@
 <div class="page-content">
 </div>
 </body>
+<script>
+ document.addEventListener('DOMContentLoaded', () => {
+ const hamburgerButton = document.querySelector('.hamburger-button');
+ const mainNav = document.querySelector('.main-nav');
+
+ hamburgerButton.addEventListener('click', () => {
+ const isExpanded = hamburgerButton.getAttribute('aria-expanded') === 'true' || false;
+ hamburgerButton.setAttribute('aria-expanded', !isExpanded);
+ hamburgerButton.classList.toggle('is-open');
+ mainNav.classList.toggle('is-open');
+ });
+ });
+</script>
 </html>
