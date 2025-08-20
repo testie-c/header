@@ -11,7 +11,7 @@ async function loadHeader() {
     }
 
     try {
-        const response = await fetch('https://testie-c.github.io/header/');
+        const response = await fetch('https://testie-c.github.io/header/index.html');
         if (!response.ok) {
             throw new Error(`Failed to load header.html: ${response.statusText}`);
         }
